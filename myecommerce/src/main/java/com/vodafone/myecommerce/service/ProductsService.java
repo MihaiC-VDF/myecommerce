@@ -1,7 +1,7 @@
 package com.vodafone.myecommerce.service;
 
 import com.vodafone.myecommerce.customexceptions.ResourceNotFoundException;
-import com.vodafone.myecommerce.model.Products;
+import com.vodafone.myecommerce.model.ProductsEntity;
 import com.vodafone.myecommerce.pojo.PaginatedProductResponse;
 import com.vodafone.myecommerce.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class ProductsService {
         this.workingRepository = workingRepository;
     }
 
-    public void save(Products recievedProduct) {
+    public void save(ProductsEntity recievedProduct) {
         workingRepository.save(recievedProduct);
     }
 
@@ -28,15 +28,15 @@ public class ProductsService {
         workingRepository.deleteById(receivedProductId);
     }
 
-    public ResponseEntity<Products> getById(Integer receivedId){
-        Products product = workingRepository.findById(receivedId)
+    public ResponseEntity<ProductsEntity> getById(Integer receivedId){
+        ProductsEntity product = workingRepository.findById(receivedId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product does not exist with id: " + receivedId));
 
         return  ResponseEntity.ok(product);
     }
 
-    public ResponseEntity update(Integer updateProductId, Products receivedProductToUpdate){
-        Products updateProduct = workingRepository.findById(updateProductId)
+    public ResponseEntity update(Integer updateProductId, ProductsEntity receivedProductToUpdate){
+        ProductsEntity updateProduct = workingRepository.findById(updateProductId)
                         .orElseThrow(() -> new ResourceNotFoundException("Product does not exist with id: " + updateProductId));
 
         updateProduct.setProductName(receivedProductToUpdate.getProductName());
@@ -49,12 +49,12 @@ public class ProductsService {
         return ResponseEntity.ok(updateProduct);
     }
 
-    public Page<Products> getProducts(Pageable pageable){
+    public Page<ProductsEntity> getProducts(Pageable pageable){
         return workingRepository.findAllProducts(pageable);
     }
 
     public PaginatedProductResponse products(Pageable pageable) {
-        Page<Products> products = workingRepository.findAll(pageable);
+        Page<ProductsEntity> products = workingRepository.findAll(pageable);
         return PaginatedProductResponse.builder()
                 .numberOfProducts((int)products.getTotalElements())
                 .numberOfPages(products.getTotalPages())

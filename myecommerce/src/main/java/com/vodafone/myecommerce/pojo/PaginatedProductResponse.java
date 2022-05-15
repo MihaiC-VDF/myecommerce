@@ -1,6 +1,6 @@
 package com.vodafone.myecommerce.pojo;
 
-import com.vodafone.myecommerce.model.Products;
+import com.vodafone.myecommerce.model.ProductsEntity;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class PaginatedProductResponse {
 
-    private List<Products> retrievedProductList;
+    private List<ProductsEntity> retrievedProductList;
     private int numberOfProducts;
     private int numberOfPages;
 

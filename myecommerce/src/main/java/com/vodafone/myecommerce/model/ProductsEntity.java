@@ -4,12 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
+
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -17,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "products")
-public class Products implements Serializable {
+public class ProductsEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,7 +40,17 @@ public class Products implements Serializable {
     @Column(name = "productPrice")
     private Double productPrice;
 
-    public Products(String productName, String productDescription, String productImage, Double productPrice) {
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "products_categories",
+                joinColumns = {
+                    @JoinColumn (name ="productUuid", referencedColumnName = "productUuid",
+                    nullable = false, updatable = false)},
+                inverseJoinColumns = {
+                    @JoinColumn (name = "categoryId", referencedColumnName = "categoryId",
+                    nullable = false, updatable = false)})
+    private Set<CategoriesEntity> categoriesList = new HashSet<>();
+
+    public ProductsEntity(String productName, String productDescription, String productImage, Double productPrice) {
         this.productUuid = UUID.randomUUID().toString();
         this.productName = productName;
         this.productDescription = productDescription;

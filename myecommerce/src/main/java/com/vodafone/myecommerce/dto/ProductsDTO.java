@@ -1,11 +1,11 @@
 package com.vodafone.myecommerce.dto;
 
-import com.vodafone.myecommerce.model.Products;
+import com.vodafone.myecommerce.model.ProductsEntity;
 
 public class ProductsDTO {
-    private Products products;
+    private ProductsEntity productsEntity;
 
-    public ProductsDTO(Products products) {
-        this.products = products;
+    public ProductsDTO(ProductsEntity productsEntity) {
+        this.productsEntity = productsEntity;
     }
 }
