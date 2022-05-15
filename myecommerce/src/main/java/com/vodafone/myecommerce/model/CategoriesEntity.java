@@ -1,15 +1,18 @@
 package com.vodafone.myecommerce.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Data
+
 @Entity
+@Setter
+@Getter
 @Table(name = "categories")
 public class CategoriesEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

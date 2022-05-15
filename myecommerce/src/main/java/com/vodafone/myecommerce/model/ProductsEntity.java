@@ -1,19 +1,24 @@
 package com.vodafone.myecommerce.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 @Table(name = "products")
 public class ProductsEntity implements Serializable {
 
@@ -57,4 +62,18 @@ public class ProductsEntity implements Serializable {
         this.productImage = productImage;
         this.productPrice = productPrice;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ProductsEntity that = (ProductsEntity) o;
+            return productId != null && Objects.equals(productId, that.productId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

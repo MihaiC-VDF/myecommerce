@@ -49,9 +49,9 @@ public class ProductsService {
         return ResponseEntity.ok(updateProduct);
     }
 
-    public Page<ProductsEntity> getProducts(Pageable pageable){
-        return workingRepository.findAllProducts(pageable);
-    }
+//    public Page<ProductsEntity> getProducts(Pageable pageable){
+//        return workingRepository.findAllProducts(pageable);
+//    }
 
     public PaginatedProductResponse products(Pageable pageable) {
         Page<ProductsEntity> products = workingRepository.findAll(pageable);
